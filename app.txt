@@ -1,0 +1,82 @@
+angular.module('ShoppingListCheckOff',[])
+		.controller('ToBuyController', ToBuyController)
+		.controller('AlreadyBoughtController', AlreadyBoughtController)
+		.service)('ShoppingListCheckOffService',ShoppingListCheckOffService);
+		
+	ToBuyController.$inject = ['$scope'];
+	function ToBuyController('ShoppingListCheckOffService'){
+		var buyList = this;
+		buyList.items = ShoppingListCheckOffService.buyItems();
+		
+		var bought(index) = function(){
+			ShoppingListCheckOffService.boughtItems(index);
+		}
+		$scope.bought = bought;	
+		
+		var isEmpty = function()
+		{
+			return ShoppingListCheckOffService.isEmpty();
+		}
+		$scope.isEmpty = isEmpty;
+	}
+	
+	
+	AlreadyBoughtController.$inject = ['$scope'];
+	function AlreadyBoughtController('ShoppingListCheckOffService'){
+		var boughtList = this;
+		
+		boughtList.items = ShoppingListCheckOffService.boughtItems(index);
+		
+		var isEmpty = function()
+		{
+			return ShoppingListCheckOffService.isEmpty();
+		}
+		$scope.isEmpty = isEmpty;
+	}
+	
+	
+	function ShoppingListCheckOffService(){
+		var service = this;
+		var toBuy = [
+		{
+			name : "Cookies",
+			quant : "5"
+		},
+		{
+			name : "Eggs",
+			quant : "6"
+		},
+		{
+			name : "Bread",
+			quant : "4"
+		},
+		{
+			name : "Chocolates",
+			quant : "7"
+		},
+		{
+			name : "Beer",
+			quant : "5"
+		}
+		];
+		
+		var alreadyBought = [];
+		
+		service.buyItems = function(index){
+			alreadyBought.push(toBuy[index]);
+			return toBuy;
+		}
+		
+		service.boughtItems = function(index){
+			items.splice(index,1);
+			return items;
+		}
+		
+		service.isEmpty = function(){
+			if (items === null){
+				return true;
+			}
+			else return false;
+		}
+		
+	}
